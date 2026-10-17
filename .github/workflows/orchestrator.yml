@@ -34,6 +34,6 @@ jobs:
         run: |
           git config --global user.name "Octopus Orchestrator Bot"
           git config --global user.email "bot@orchestrator.local"
-          git add db/ledger.sqlite data/state.json
-          git commit -m "Automated billing execution log: $(date -u)" || echo "No changes to commit"
+          git add db/ledger.sqlite data/state.json data/bureau_export.txt
+          git commit -m "Automated billing & compliance log execution: $(date -u)" || echo "No changes to commit"
           git push

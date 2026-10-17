@@ -7,6 +7,7 @@ import requests
 # Configuration & Environment
 DB_PATH = os.getenv("DB_PATH", "db/ledger.sqlite")
 STATE_JSON_PATH = os.getenv("STATE_JSON_PATH", "data/state.json")
+EXPORT_PATH = os.getenv("EXPORT_PATH", "data/bureau_export.txt")
 PAYMENT_API_URL = os.getenv("PAYMENT_API_URL", "https://api.mock-payment-gateway.local/v1/execute")
 PAYMENT_API_KEY = os.getenv("PAYMENT_API_KEY", "")
 
@@ -44,7 +45,6 @@ def check_and_execute_bills():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
-    # Look for bills due within the next 3 days that are still pending
     target_date = (datetime.now(timezone.utc) + timedelta(days=3)).strftime('%Y-%m-%d')
     
     cursor.execute("SELECT id, biller_name, amount, due_date FROM bills WHERE status = 'PENDING' AND due_date <= ?", (target_date,))
@@ -98,6 +98,7 @@ def check_and_execute_bills():
 
     conn.close()
     export_state_to_json()
+    generate_metro2_record()
     return execution_results
 
 def export_state_to_json():
@@ -124,6 +125,48 @@ def export_state_to_json():
     with open(STATE_JSON_PATH, "w") as f:
         json.dump(state_data, f, indent=2)
     print(f"State successfully exported to {STATE_JSON_PATH}")
+
+def generate_metro2_record():
+    """Extract successful transactions and format them into a compliant compliance log."""
+    if not os.path.exists(DB_PATH):
+        return
+
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    
+    cursor.execute("""
+        SELECT t.id, b.biller_name, b.amount, t.execution_timestamp, t.status 
+        FROM transactions t
+        JOIN bills b ON t.bill_id = b.id
+        WHERE t.status = 'SUCCESS'
+    """)
+    records = cursor.fetchall()
+    conn.close()
+
+    if not records:
+        return
+
+    os.makedirs(os.path.dirname(EXPORT_PATH), exist_ok=True)
+    
+    export_lines = []
+    header_date = datetime.now(timezone.utc).strftime('%Y%m%d')
+    export_lines.append(f"HEADER_RECORD_OCTOPUS_CORP_{header_date}")
+
+    for r in records:
+        txn_id = str(r['id']).zfill(6)
+        biller = r['biller_name'].ljust(20)[:20]
+        amount_str = f"{int(r['amount'] * 100):010d}"
+        timestamp = r['execution_timestamp']
+        
+        line = f"D|{txn_id}|{biller}|{amount_str}|PAID|{timestamp}"
+        export_lines.append(line)
+
+    export_lines.append(f"TRAILER_RECORD_COUNT_{len(records):06d}")
+
+    with open(EXPORT_PATH, "w") as f:
+        f.write("\n".join(export_lines) + "\n")
+    print(f"Compliance export generated at {EXPORT_PATH}")
 
 if __name__ == "__main__":
     print("Initializing Financial Orchestration Engine...")
