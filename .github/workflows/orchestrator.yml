@@ -1,0 +1,39 @@
+name: Financial Orchestrator Engine
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  execute-billing:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install requests
+
+      - name: Run Orchestrator Script
+        env:
+          PAYMENT_API_KEY: ${{ secrets.PAYMENT_API_KEY }}
+          PAYMENT_API_URL: ${{ secrets.PAYMENT_API_URL }}
+        run: |
+          python scripts/orchestrator.py
+
+      - name: Commit State Updates
+        run: |
+          git config --global user.name "Octopus Orchestrator Bot"
+          git config --global user.email "bot@orchestrator.local"
+          git add db/ledger.sqlite data/state.json
+          git commit -m "Automated billing execution log: $(date -u)" || echo "No changes to commit"
+          git push

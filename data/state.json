@@ -1,0 +1,21 @@
+{
+  "last_updated": "2026-10-17T19:48:40.193974+00:00",
+  "bills": [
+    {
+      "id": 1,
+      "biller_name": "Test Utility Provider",
+      "amount": 75.5,
+      "due_date": "2026-10-18",
+      "status": "SUCCESS"
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "bill_id": 1,
+      "execution_timestamp": "2026-10-17T19:48:40.185896+00:00",
+      "status": "SUCCESS",
+      "response_payload": "{\"status\": \"simulated_success\", \"transaction_ref\": \"TXN-1-1792266520\"}"
+    }
+  ]
+}
