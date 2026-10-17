@@ -3,14 +3,14 @@ import sqlite3
 import json
 from datetime import datetime, timezone, timedelta
 from sandbox_gateway import process_sandbox_payment
+from biller_registry import seed_billers
 
-# Configuration & Environment
 DB_PATH = os.getenv("DB_PATH", "db/ledger.sqlite")
 STATE_JSON_PATH = os.getenv("STATE_JSON_PATH", "data/state.json")
 EXPORT_PATH = os.getenv("EXPORT_PATH", "data/bureau_export.txt")
 
 def init_db():
-    """Ensure local database and required tables exist."""
+    """Ensure local database, billers, and transaction tables exist."""
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -37,9 +37,36 @@ def init_db():
     """)
     conn.commit()
     conn.close()
+    
+    # Seed default billers on init
+    seed_billers()
+
+def sync_registry_to_pending_bills():
+    """Automatically generate pending bills for registered billers if none exist for today."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT biller_name, default_amount FROM billers")
+    registered_billers = cursor.fetchall()
+    
+    today_str = datetime.now(timezone.utc).strftime('%Y-%m-%d')
+    
+    for biller_name, amount in registered_billers:
+        # Check if a pending bill already exists for this biller
+        cursor.execute("SELECT id FROM bills WHERE biller_name = ? AND status = 'PENDING'", (biller_name,))
+        if not cursor.fetchone():
+            cursor.execute("""
+                INSERT INTO bills (biller_name, amount, due_date, status)
+                VALUES (?, ?, ?, 'PENDING')
+            """, (biller_name, amount, today_str))
+    
+    conn.commit()
+    conn.close()
 
 def check_and_execute_bills():
-    """Query pending bills due soon and process them via the sandbox gateway."""
+    """Query all pending sole-proprietor bills and process them via the sandbox gateway."""
+    sync_registry_to_pending_bills()
+    
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
@@ -52,9 +79,8 @@ def check_and_execute_bills():
 
     for bill in pending_bills:
         bill_id, biller_name, amount, due_date = bill
-        print(f"Executing billing cycle for {biller_name}: ${amount} CAD (Due: {due_date})")
+        print(f"Executing billing cycle for {biller_name}: ${amount:.2f} CAD (Due: {due_date})")
         
-        # Execute payment through our sandbox gateway module
         gateway_result = process_sandbox_payment(bill_id, biller_name, amount)
         
         status = gateway_result["status"]
@@ -81,7 +107,6 @@ def check_and_execute_bills():
     return execution_results
 
 def export_state_to_json():
-    """Dump active database view into an immutable JSON artifact for repo commits."""
     os.makedirs(os.path.dirname(STATE_JSON_PATH), exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -103,10 +128,8 @@ def export_state_to_json():
     
     with open(STATE_JSON_PATH, "w") as f:
         json.dump(state_data, f, indent=2)
-    print(f"State successfully exported to {STATE_JSON_PATH}")
 
 def generate_metro2_record():
-    """Extract successful transactions and format them into a compliant compliance log."""
     if not os.path.exists(DB_PATH):
         return
 
@@ -130,7 +153,7 @@ def generate_metro2_record():
     
     export_lines = []
     header_date = datetime.now(timezone.utc).strftime('%Y%m%d')
-    export_lines.append(f"HEADER_RECORD_OCTOPUS_CORP_{header_date}")
+    export_lines.append(f"HEADER_RECORD_SOLE_PROP_CORP_{header_date}")
 
     for r in records:
         txn_id = str(r['id']).zfill(6)
@@ -145,10 +168,9 @@ def generate_metro2_record():
 
     with open(EXPORT_PATH, "w") as f:
         f.write("\n".join(export_lines) + "\n")
-    print(f"Compliance export generated at {EXPORT_PATH}")
 
 if __name__ == "__main__":
-    print("Initializing Financial Orchestration Engine (Sandbox Mode)...")
+    print("Initializing Financial Orchestration Engine (Multi-Biller Sandbox Mode)...")
     init_db()
     results = check_and_execute_bills()
     print(f"Execution cycle completed. Processed {len(results)} items.")
