@@ -2,14 +2,12 @@ import os
 import sqlite3
 import json
 from datetime import datetime, timezone, timedelta
-import requests
+from sandbox_gateway import process_sandbox_payment
 
 # Configuration & Environment
 DB_PATH = os.getenv("DB_PATH", "db/ledger.sqlite")
 STATE_JSON_PATH = os.getenv("STATE_JSON_PATH", "data/state.json")
 EXPORT_PATH = os.getenv("EXPORT_PATH", "data/bureau_export.txt")
-PAYMENT_API_URL = os.getenv("PAYMENT_API_URL", "https://api.mock-payment-gateway.local/v1/execute")
-PAYMENT_API_KEY = os.getenv("PAYMENT_API_KEY", "")
 
 def init_db():
     """Ensure local database and required tables exist."""
@@ -41,7 +39,7 @@ def init_db():
     conn.close()
 
 def check_and_execute_bills():
-    """Query pending bills due soon and process external payment triggers."""
+    """Query pending bills due soon and process them via the sandbox gateway."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
@@ -54,32 +52,13 @@ def check_and_execute_bills():
 
     for bill in pending_bills:
         bill_id, biller_name, amount, due_date = bill
-        print(f"Processing payment for {biller_name}: ${amount} (Due: {due_date})")
+        print(f"Executing billing cycle for {biller_name}: ${amount} CAD (Due: {due_date})")
         
-        payload = {
-            "bill_id": bill_id,
-            "biller": biller_name,
-            "amount": amount,
-            "timestamp": datetime.now(timezone.utc).isoformat()
-        }
+        # Execute payment through our sandbox gateway module
+        gateway_result = process_sandbox_payment(bill_id, biller_name, amount)
         
-        headers = {
-            "Authorization": f"Bearer {PAYMENT_API_KEY}",
-            "Content-Type": "application/json"
-        }
-        
-        try:
-            if PAYMENT_API_URL and "mock-payment-gateway" not in PAYMENT_API_URL:
-                response = requests.post(PAYMENT_API_URL, json=payload, headers=headers, timeout=15)
-                response_data = response.json()
-                status = "SUCCESS" if response.status_code == 200 else "FAILED"
-            else:
-                response_data = {"status": "simulated_success", "transaction_ref": f"TXN-{bill_id}-{int(datetime.now(timezone.utc).timestamp())}"}
-                status = "SUCCESS"
-                
-        except Exception as e:
-            response_data = {"error": str(e)}
-            status = "FAILED"
+        status = gateway_result["status"]
+        response_data = gateway_result["data"]
             
         cursor.execute("UPDATE bills SET status = ? WHERE id = ?", (status, bill_id))
         cursor.execute(
@@ -169,7 +148,7 @@ def generate_metro2_record():
     print(f"Compliance export generated at {EXPORT_PATH}")
 
 if __name__ == "__main__":
-    print("Initializing Financial Orchestration Engine...")
+    print("Initializing Financial Orchestration Engine (Sandbox Mode)...")
     init_db()
     results = check_and_execute_bills()
     print(f"Execution cycle completed. Processed {len(results)} items.")
