@@ -3,43 +3,61 @@ import json
 import uuid
 from datetime import datetime, timezone
 
-# Sandbox environment configuration
-SANDBOX_MODE = os.getenv("SANDBOX_MODE", "true")
 CURRENCY = "CAD"
 
 def process_sandbox_payment(bill_id, biller_name, amount):
     """
-    Simulates a secure external API call to a Canadian payment sandbox 
-    (such as a Stripe Testmode or ISO 20022 clearing gateway).
+    Simulates a Payments Canada Real-Time Rail (RTR) API sandbox call 
+    using ISO 20022 (pacs.008 Customer Credit Transfer) data structures.
     """
-    transaction_reference = f"CA-SANDBOX-{uuid.uuid4().hex[:10].upper()}"
+    end_to_end_id = f"RTR-E2E-{uuid.uuid4().hex[:12].upper()}"
+    instruction_id = f"RTR-INS-{uuid.uuid4().hex[:12].upper()}"
     execution_time = datetime.now(timezone.utc).isoformat()
     
-    # Convert CAD amount to cents for institutional accuracy
-    amount_in_cents = int(round(amount * 100))
+    amount_str = f"{amount:.2f}"
     
-    print(f"[SANDBOX GATEWAY] Connecting to secure payment clearing endpoint...")
-    print(f"[SANDBOX GATEWAY] Processing {CURRENCY} ${amount:.2f} for biller: {biller_name}")
+    print(f"[PAYMENTS CANADA RTR SANDBOX] Dispatching ISO 20022 pacs.008 payload...")
+    print(f"[PAYMENTS CANADA RTR SANDBOX] Biller: {biller_name} | Amount: {CURRENCY} ${amount_str}")
 
-    # Constructing a standard institutional payment response payload
-    response_payload = {
-        "transaction_id": transaction_reference,
-        "status": "APPROVED",
-        "currency": CURRENCY,
-        "amount_cents": amount_in_cents,
-        "biller": biller_name,
-        "clearing_rail": "CANADIAN_TEST_EFT_RAIL",
-        "timestamp": execution_time,
-        "secure_token": f"tok_test_canada_{uuid.uuid4().hex[:6]}"
+    # ISO 20022 aligned message structure for Canadian Real-Time Rail simulation
+    iso_pacs_008_payload = {
+        "document": {
+            "FIToFICstmrCdtTrf": {
+                "GrpHdr": {
+                    "MsgId": instruction_id,
+                    "CreDtTm": execution_time,
+                    "NbOfTxs": "1",
+                    "SttlmInf": {
+                        "SttlmMtd": "CLRG"
+                    }
+                },
+                "CdtTrfTxInf": {
+                    "PmtId": {
+                        "EndToEndId": end_to_end_id
+                    },
+                    "IntrBkSttlmAmt": {
+                        "Ccy": CURRENCY,
+                        "Value": amount_str
+                    },
+                    "Cdtr": {
+                        "Nm": biller_name
+                    },
+                    "RmtInf": {
+                        "Ustrd": f"Automated billing execution for bill ID {bill_id}"
+                    }
+                }
+            }
+        },
+        "sandbox_status": "ACCP", # ISO code for Accepted Customer Profile / Settlement Success
+        "clearing_rail": "CANADIAN_RTR_SANDBOX"
     }
 
     return {
         "status": "SUCCESS",
         "response_code": 200,
-        "data": response_payload
+        "data": iso_pacs_008_payload
     }
 
 if __name__ == "__main__":
-    # Quick standalone test of the sandbox gateway
-    result = process_sandbox_payment(999, "Test Utility Provider Corp", 125.50)
+    result = process_sandbox_payment(101, "Hydro Edmonton Utility", 95.40)
     print(json.dumps(result, indent=2))
