@@ -2,8 +2,17 @@ import os
 import sqlite3
 import json
 from datetime import datetime, timezone, timedelta
-from sandbox_gateway import process_sandbox_payment
 from biller_registry import seed_billers
+
+# Dynamic gateway selection check
+USE_LIVE_GATEWAY = os.getenv("USE_LIVE_GATEWAY", "false").lower() == "true"
+
+if USE_LIVE_GATEWAY:
+    from live_gateway import process_live_payment as process_payment
+    print("[ORCHESTRATOR ENGINE] Mode: 🟢 LIVE COMMERCIAL GATEWAY")
+else:
+    from sandbox_gateway import process_sandbox_payment as process_payment
+    print("[ORCHESTRATOR ENGINE] Mode: 🟡 SANDBOX SIMULATION")
 
 DB_PATH = os.getenv("DB_PATH", "db/ledger.sqlite")
 STATE_JSON_PATH = os.getenv("STATE_JSON_PATH", "data/state.json")
@@ -70,10 +79,12 @@ def check_and_execute_bills():
     for bill in pending_bills:
         bill_id, biller_name, amount, due_date = bill
         
-        # Test error injection specifically for Co-working Space to verify failure handling, or pass False for normal runs
-        force_err = True if "Co-working" in biller_name and os.getenv("TEST_ERROR_MODE") == "1" else False
-        
-        gateway_result = process_sandbox_payment(bill_id, biller_name, amount, force_error=force_err)
+        # Execute via active gateway
+        if USE_LIVE_GATEWAY:
+            gateway_result = process_payment(bill_id, biller_name, amount)
+        else:
+            force_err = True if "Co-working" in biller_name and os.getenv("TEST_ERROR_MODE") == "1" else False
+            gateway_result = process_payment(bill_id, biller_name, amount, force_error=force_err)
         
         status = gateway_result["status"]
         response_data = gateway_result["data"]
@@ -128,7 +139,6 @@ def generate_metro2_record():
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
-    # Only export successful settlements to bureau compliance records
     cursor.execute("""
         SELECT t.id, b.biller_name, b.amount, t.execution_timestamp, t.status 
         FROM transactions t
@@ -159,7 +169,7 @@ def generate_metro2_record():
         f.write("\n".join(export_lines) + "\n")
 
 if __name__ == "__main__":
-    print("Initializing Financial Orchestration Engine (Robust Sandbox Mode)...")
+    print("Initializing Financial Orchestration Engine...")
     init_db()
     results = check_and_execute_bills()
-    print(f"Execution cycle completed. Processed {len(results)} items with idempotency and ISO status checks.")
+    print(f"Execution cycle completed. Processed {len(results)} items.")
