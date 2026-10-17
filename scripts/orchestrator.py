@@ -10,7 +10,6 @@ STATE_JSON_PATH = os.getenv("STATE_JSON_PATH", "data/state.json")
 EXPORT_PATH = os.getenv("EXPORT_PATH", "data/bureau_export.txt")
 
 def init_db():
-    """Ensure local database, billers, and transaction tables exist."""
     os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
@@ -37,41 +36,32 @@ def init_db():
     """)
     conn.commit()
     conn.close()
-    
-    # Seed default billers on init
     seed_billers()
 
 def sync_registry_to_pending_bills():
-    """Automatically generate pending bills for registered billers if none exist for today."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    
     cursor.execute("SELECT biller_name, default_amount FROM billers")
     registered_billers = cursor.fetchall()
     
     today_str = datetime.now(timezone.utc).strftime('%Y-%m-%d')
     
     for biller_name, amount in registered_billers:
-        # Check if a pending bill already exists for this biller
         cursor.execute("SELECT id FROM bills WHERE biller_name = ? AND status = 'PENDING'", (biller_name,))
         if not cursor.fetchone():
             cursor.execute("""
                 INSERT INTO bills (biller_name, amount, due_date, status)
                 VALUES (?, ?, ?, 'PENDING')
             """, (biller_name, amount, today_str))
-    
     conn.commit()
     conn.close()
 
 def check_and_execute_bills():
-    """Query all pending sole-proprietor bills and process them via the sandbox gateway."""
     sync_registry_to_pending_bills()
-    
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     
     target_date = (datetime.now(timezone.utc) + timedelta(days=3)).strftime('%Y-%m-%d')
-    
     cursor.execute("SELECT id, biller_name, amount, due_date FROM bills WHERE status = 'PENDING' AND due_date <= ?", (target_date,))
     pending_bills = cursor.fetchall()
     
@@ -79,9 +69,11 @@ def check_and_execute_bills():
 
     for bill in pending_bills:
         bill_id, biller_name, amount, due_date = bill
-        print(f"Executing billing cycle for {biller_name}: ${amount:.2f} CAD (Due: {due_date})")
         
-        gateway_result = process_sandbox_payment(bill_id, biller_name, amount)
+        # Test error injection specifically for Co-working Space to verify failure handling, or pass False for normal runs
+        force_err = True if "Co-working" in biller_name and os.getenv("TEST_ERROR_MODE") == "1" else False
+        
+        gateway_result = process_sandbox_payment(bill_id, biller_name, amount, force_error=force_err)
         
         status = gateway_result["status"]
         response_data = gateway_result["data"]
@@ -117,7 +109,6 @@ def export_state_to_json():
     
     cursor.execute("SELECT * FROM transactions")
     transactions = [dict(row) for row in cursor.fetchall()]
-    
     conn.close()
     
     state_data = {
@@ -137,6 +128,7 @@ def generate_metro2_record():
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
+    # Only export successful settlements to bureau compliance records
     cursor.execute("""
         SELECT t.id, b.biller_name, b.amount, t.execution_timestamp, t.status 
         FROM transactions t
@@ -150,7 +142,6 @@ def generate_metro2_record():
         return
 
     os.makedirs(os.path.dirname(EXPORT_PATH), exist_ok=True)
-    
     export_lines = []
     header_date = datetime.now(timezone.utc).strftime('%Y%m%d')
     export_lines.append(f"HEADER_RECORD_SOLE_PROP_CORP_{header_date}")
@@ -160,17 +151,15 @@ def generate_metro2_record():
         biller = r['biller_name'].ljust(20)[:20]
         amount_str = f"{int(r['amount'] * 100):010d}"
         timestamp = r['execution_timestamp']
-        
         line = f"D|{txn_id}|{biller}|{amount_str}|PAID|{timestamp}"
         export_lines.append(line)
 
     export_lines.append(f"TRAILER_RECORD_COUNT_{len(records):06d}")
-
     with open(EXPORT_PATH, "w") as f:
         f.write("\n".join(export_lines) + "\n")
 
 if __name__ == "__main__":
-    print("Initializing Financial Orchestration Engine (Multi-Biller Sandbox Mode)...")
+    print("Initializing Financial Orchestration Engine (Robust Sandbox Mode)...")
     init_db()
     results = check_and_execute_bills()
-    print(f"Execution cycle completed. Processed {len(results)} items.")
+    print(f"Execution cycle completed. Processed {len(results)} items with idempotency and ISO status checks.")
