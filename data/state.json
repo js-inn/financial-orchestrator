@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "last_updated": "2026-10-19T15:18:53.068741+00:00",
-=======
-  "last_updated": "2026-10-17T20:37:52.314514+00:00",
->>>>>>> 1a30ff9 (chore: re-anchor state proof after entity meta update)
+  "last_updated": "2026-10-20T13:22:26.526206+00:00",
   "bills": [
     {
       "id": 1,
@@ -65,179 +61,35 @@
       "id": 9,
       "biller_name": "Co-working Space Desk Fee",
       "amount": 250.0,
-<<<<<<< HEAD
       "due_date": "2026-10-19",
-=======
-      "due_date": "2026-10-17",
-      "status": "FAILED"
-    },
-    {
-      "id": 9,
-      "biller_name": "Hydro Edmonton Utility",
-      "amount": 145.8,
-      "due_date": "2026-10-17",
       "status": "SUCCESS"
     },
     {
       "id": 10,
-      "biller_name": "Edmonton Telecommunications",
-      "amount": 89.5,
-      "due_date": "2026-10-17",
+      "biller_name": "Hydro Edmonton Utility",
+      "amount": 145.8,
+      "due_date": "2026-10-20",
       "status": "SUCCESS"
     },
     {
       "id": 11,
-      "biller_name": "Cloud Infrastructure Provider",
-      "amount": 45.0,
-      "due_date": "2026-10-17",
+      "biller_name": "Edmonton Telecommunications",
+      "amount": 89.5,
+      "due_date": "2026-10-20",
       "status": "SUCCESS"
     },
     {
       "id": 12,
-      "biller_name": "Co-working Space Desk Fee",
-      "amount": 250.0,
-      "due_date": "2026-10-17",
+      "biller_name": "Cloud Infrastructure Provider",
+      "amount": 45.0,
+      "due_date": "2026-10-20",
       "status": "SUCCESS"
     },
     {
       "id": 13,
-      "biller_name": "Hydro Edmonton Utility",
-      "amount": 145.8,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 14,
-      "biller_name": "Edmonton Telecommunications",
-      "amount": 89.5,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 15,
-      "biller_name": "Cloud Infrastructure Provider",
-      "amount": 45.0,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 16,
       "biller_name": "Co-working Space Desk Fee",
       "amount": 250.0,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 17,
-      "biller_name": "Hydro Edmonton Utility",
-      "amount": 145.8,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 18,
-      "biller_name": "Edmonton Telecommunications",
-      "amount": 89.5,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 19,
-      "biller_name": "Cloud Infrastructure Provider",
-      "amount": 45.0,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 20,
-      "biller_name": "Co-working Space Desk Fee",
-      "amount": 250.0,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 21,
-      "biller_name": "Hydro Edmonton Utility",
-      "amount": 145.8,
-      "due_date": "2026-10-17",
-      "status": "FAILED"
-    },
-    {
-      "id": 22,
-      "biller_name": "Edmonton Telecommunications",
-      "amount": 89.5,
-      "due_date": "2026-10-17",
-      "status": "FAILED"
-    },
-    {
-      "id": 23,
-      "biller_name": "Cloud Infrastructure Provider",
-      "amount": 45.0,
-      "due_date": "2026-10-17",
-      "status": "FAILED"
-    },
-    {
-      "id": 24,
-      "biller_name": "Co-working Space Desk Fee",
-      "amount": 250.0,
-      "due_date": "2026-10-17",
-      "status": "FAILED"
-    },
-    {
-      "id": 25,
-      "biller_name": "Hydro Edmonton Utility",
-      "amount": 145.8,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 26,
-      "biller_name": "Edmonton Telecommunications",
-      "amount": 89.5,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 27,
-      "biller_name": "Cloud Infrastructure Provider",
-      "amount": 45.0,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 28,
-      "biller_name": "Co-working Space Desk Fee",
-      "amount": 250.0,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 29,
-      "biller_name": "Hydro Edmonton Utility",
-      "amount": 145.8,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 30,
-      "biller_name": "Edmonton Telecommunications",
-      "amount": 89.5,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 31,
-      "biller_name": "Cloud Infrastructure Provider",
-      "amount": 45.0,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 32,
-      "biller_name": "Co-working Space Desk Fee",
-      "amount": 250.0,
-      "due_date": "2026-10-17",
->>>>>>> 1a30ff9 (chore: re-anchor state proof after entity meta update)
+      "due_date": "2026-10-20",
       "status": "SUCCESS"
     }
   ],
@@ -294,146 +146,44 @@
     {
       "id": 8,
       "bill_id": 8,
-<<<<<<< HEAD
       "execution_timestamp": "2026-10-19T15:18:53.066888+00:00",
       "status": "SUCCESS",
       "response_payload": "{\"idempotency_key\": \"cf5950627009266462879980304186732b72194d4b46589ae8115e8b189fdcb5\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-2E2F2B5B4425\", \"CreDtTm\": \"2026-10-19T15:18:53.066760+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-8EB97208DA30\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"45.00\"}, \"Cdtr\": {\"Nm\": \"Cloud Infrastructure Provider\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 8\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-7A3C9172\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
-=======
-      "execution_timestamp": "2026-10-17T20:21:29.988603+00:00",
-      "status": "FAILED",
-      "response_payload": "{\"idempotency_key\": \"1ad035e397bb6315fcbbb940360ec0c078390e89622047989972d0b82c7c606e\", \"pacs_002_status_report\": {\"OrgnlGrpInf\": {\"OrgnlMsgId\": \"RTR-INS-5445DB7C592B\"}, \"TxSts\": \"RJCT\", \"Rsn\": {\"Prtry\": \"AC04 - Closed Account / Simulation Rejection\"}}}"
->>>>>>> 1a30ff9 (chore: re-anchor state proof after entity meta update)
     },
     {
       "id": 9,
       "bill_id": 9,
-<<<<<<< HEAD
       "execution_timestamp": "2026-10-19T15:18:53.067695+00:00",
       "status": "SUCCESS",
       "response_payload": "{\"idempotency_key\": \"e80e381c5a5778cd468d76c3d73139e2375c96672fa2af5abe519fca26d25542\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-A4F4136BEC6C\", \"CreDtTm\": \"2026-10-19T15:18:53.067612+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-8EC2C7B5735F\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"250.00\"}, \"Cdtr\": {\"Nm\": \"Co-working Space Desk Fee\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 9\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-82E48FD1\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
-=======
-      "execution_timestamp": "2026-10-17T20:28:24.742293+00:00",
-      "status": "SUCCESS",
-      "response_payload": "{\"idempotency_key\": \"0a33e0f16b597039e8729a5b7d2589428a99c699f876dbc8f9fef9e55375a52f\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-75A1579B750A\", \"CreDtTm\": \"2026-10-17T20:28:24.741812+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-2CEC80DB39CB\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"145.80\"}, \"Cdtr\": {\"Nm\": \"Hydro Edmonton Utility\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 9\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-27B16334\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
     },
     {
       "id": 10,
       "bill_id": 10,
-      "execution_timestamp": "2026-10-17T20:28:24.750161+00:00",
+      "execution_timestamp": "2026-10-20T13:22:26.522229+00:00",
       "status": "SUCCESS",
-      "response_payload": "{\"idempotency_key\": \"fb9cc74d191b83d622595ed812d7a635dff6c1fb530a4b49e5f55638137acd40\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-89043ABE033C\", \"CreDtTm\": \"2026-10-17T20:28:24.749344+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-FBBB9BDBB33E\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"89.50\"}, \"Cdtr\": {\"Nm\": \"Edmonton Telecommunications\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 10\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-0F0A6113\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
+      "response_payload": "{\"idempotency_key\": \"0f19411759848a5347fd1bfaf6a4876b6c1dd6115c0c8891e376f702b456d55e\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-956BCAF59A53\", \"CreDtTm\": \"2026-10-20T13:22:26.522156+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-B73274BD3D6C\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"145.80\"}, \"Cdtr\": {\"Nm\": \"Hydro Edmonton Utility\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 10\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-8C44DB94\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
     },
     {
       "id": 11,
       "bill_id": 11,
-      "execution_timestamp": "2026-10-17T20:28:24.756110+00:00",
+      "execution_timestamp": "2026-10-20T13:22:26.523135+00:00",
       "status": "SUCCESS",
-      "response_payload": "{\"idempotency_key\": \"b41a97955dca4555e1aca6d0ace55ef76ae8bfdeacecfb34a8de3c835a65f56e\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-09EB6CEE175A\", \"CreDtTm\": \"2026-10-17T20:28:24.755453+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-09CD521AF278\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"45.00\"}, \"Cdtr\": {\"Nm\": \"Cloud Infrastructure Provider\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 11\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-29405BA6\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
+      "response_payload": "{\"idempotency_key\": \"6efb0807efd8c5d04a19a44b4e347070ca8082c508d03be09285018f4701079c\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-2F080DC0BB64\", \"CreDtTm\": \"2026-10-20T13:22:26.523072+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-431153EC9F46\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"89.50\"}, \"Cdtr\": {\"Nm\": \"Edmonton Telecommunications\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 11\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-5B088C28\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
     },
     {
       "id": 12,
       "bill_id": 12,
-      "execution_timestamp": "2026-10-17T20:28:24.762263+00:00",
+      "execution_timestamp": "2026-10-20T13:22:26.524034+00:00",
       "status": "SUCCESS",
-      "response_payload": "{\"idempotency_key\": \"ed18b1244e1a94bbf9249df3bdad8da1896a33afeee8cf0f438445f13912b63c\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-FB890A364AE4\", \"CreDtTm\": \"2026-10-17T20:28:24.761498+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-7B55016C2D90\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"250.00\"}, \"Cdtr\": {\"Nm\": \"Co-working Space Desk Fee\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 12\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-2EDB345F\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
+      "response_payload": "{\"idempotency_key\": \"88b582c6e0579f33602e75b8c7327fe4fc877c88f6135bdde1959cfb0eaffa3a\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-79F2057806D9\", \"CreDtTm\": \"2026-10-20T13:22:26.523932+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-92EF606DD782\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"45.00\"}, \"Cdtr\": {\"Nm\": \"Cloud Infrastructure Provider\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 12\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-D03B32E3\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
     },
     {
       "id": 13,
       "bill_id": 13,
-      "execution_timestamp": "2026-10-17T20:28:30.415102+00:00",
+      "execution_timestamp": "2026-10-20T13:22:26.524875+00:00",
       "status": "SUCCESS",
-      "response_payload": "{\"idempotency_key\": \"954a8f7b8451e278c36c01edc92c3cfa098fa0d3242d354ec1b20b1cd02f37ec\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-42414BFB613D\", \"CreDtTm\": \"2026-10-17T20:28:30.414466+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-0E8AD00A0AE9\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"145.80\"}, \"Cdtr\": {\"Nm\": \"Hydro Edmonton Utility\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 13\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-947433E4\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
-    },
-    {
-      "id": 14,
-      "bill_id": 14,
-      "execution_timestamp": "2026-10-17T20:28:30.422554+00:00",
-      "status": "SUCCESS",
-      "response_payload": "{\"idempotency_key\": \"14bc14464beb0eaa66d2491c6fc6f23ae7059c45284cf0eb239627545ed6d0cf\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-C7F0C361A5ED\", \"CreDtTm\": \"2026-10-17T20:28:30.421830+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-46CD71EF05FB\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"89.50\"}, \"Cdtr\": {\"Nm\": \"Edmonton Telecommunications\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 14\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-5AAAF019\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
-    },
-    {
-      "id": 15,
-      "bill_id": 15,
-      "execution_timestamp": "2026-10-17T20:28:30.428887+00:00",
-      "status": "SUCCESS",
-      "response_payload": "{\"idempotency_key\": \"e0828a960f25e4779fdb91eb2eaacf65bb3d40a8bae7f315467afbe28fed7c1d\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-789770D07386\", \"CreDtTm\": \"2026-10-17T20:28:30.428202+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-B7D51DD3AA34\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"45.00\"}, \"Cdtr\": {\"Nm\": \"Cloud Infrastructure Provider\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 15\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-D3AA4298\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
-    },
-    {
-      "id": 16,
-      "bill_id": 16,
-      "execution_timestamp": "2026-10-17T20:28:30.435425+00:00",
-      "status": "SUCCESS",
-      "response_payload": "{\"idempotency_key\": \"cdf4d28e14007176dfbd1c8f2cb111d587aea9fac55e707d58742f6fd7dd034e\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-F27CA517D31C\", \"CreDtTm\": \"2026-10-17T20:28:30.434674+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-3FFA478D8A86\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"250.00\"}, \"Cdtr\": {\"Nm\": \"Co-working Space Desk Fee\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 16\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-8CAB3DDA\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
-    },
-    {
-      cat << 'EOF' > data/state.json
-{
-  "last_updated": "2026-10-19T15:18:53.068741-00:00",
-  "bills": [
-    {
-      "id": 1,
-      "biller_name": "Test Utility Provider",
-      "amount": 75.5,
-      "due_date": "2026-10-18",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 2,
-      "biller_name": "Hydro Edmonton Utility",
-      "amount": 145.8,
-      "due_date": "2026-10-18",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 3,
-      "biller_name": "Edmonton Telecommunications",
-      "amount": 89.5,
-      "due_date": "2026-10-18",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 4,
-      "biller_name": "Cloud Infrastructure Provider",
-      "amount": 45.0,
-      "due_date": "2026-10-18",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 5,
-      "biller_name": "Co-working Space Desk Fee",
-      "amount": 250.0,
-      "due_date": "2026-10-18",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 6,
-      "biller_name": "Hydro Edmonton Utility",
-      "amount": 145.8,
-      "due_date": "2026-10-19",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 7,
-      "biller_name": "Edmonton Telecommunications",
-      "amount": 89.5,
-      "due_date": "2026-10-19",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 8,
-      "biller_name": "Cloud Infrastructure Provider",
-      "amount": 45.0,
-      "due_date": "2026-10-19",
-      "status": "SUCCESS"
-    },
-    {
-      "id": 9,
-      "biller_name": "Co-working Space Desk Fee",
-      "amount": 250.0,
-      "due_date": "2026-10-17",
-      "status": "SUCCESS"
+      "response_payload": "{\"idempotency_key\": \"a8b8f8e79afa3be9562884477fe77c608bb70623b408749cd7c73d77406663c9\", \"document\": {\"FIToFICstmrCdtTrf\": {\"GrpHdr\": {\"MsgId\": \"RTR-INS-4E159C9CE70C\", \"CreDtTm\": \"2026-10-20T13:22:26.524792+00:00\", \"NbOfTxs\": \"1\", \"SttlmInf\": {\"SttlmMtd\": \"CLRG\"}}, \"CdtTrfTxInf\": {\"PmtId\": {\"EndToEndId\": \"RTR-E2E-88216955A570\"}, \"IntrBkSttlmAmt\": {\"Ccy\": \"CAD\", \"Value\": \"250.00\"}, \"Cdtr\": {\"Nm\": \"Co-working Space Desk Fee\"}, \"RmtInf\": {\"Ustrd\": \"Sole-proprietor automated settlement for bill ID 13\"}}}}, \"pacs_002_status_report\": {\"TxSts\": \"ACCP\", \"ClrSysRef\": \"RTR-CLR-437A68FC\"}, \"clearing_rail\": \"CANADIAN_RTR_SANDBOX\"}"
     }
   ]
 }
-EOF
-
